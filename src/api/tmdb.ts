@@ -1,5 +1,3 @@
-// src/api/tmdb.ts
-
 import axios from 'axios';
 
 const apiKey = '100157c6ac6ed863cb3bbb8efb9f0519';
@@ -13,6 +11,7 @@ const tmdb = axios.create({
   },
   params: {
     api_key: apiKey,
+    language: 'pt-BR',
   },
 });
 
@@ -36,11 +35,13 @@ export const getPopularSeries = async () => {
   }
 };
 
+
+
 export const getMarvelMovies = async () => {
   try {
     const response = await tmdb.get('/discover/movie', {
       params: {
-        with_keywords: 'marvel',
+        with_keywords: '180547', 
       },
     });
     return response.data.results;
@@ -49,5 +50,6 @@ export const getMarvelMovies = async () => {
     return [];
   }
 };
+
 
 export default tmdb;

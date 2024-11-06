@@ -1,4 +1,3 @@
-// src/pages/Home.tsx
 import { useEffect, useState } from 'react';
 import { getPopularMovies, getPopularSeries, getMarvelMovies } from '../api/tmdb';
 import Carousel from '../components/Carousel';
@@ -20,7 +19,6 @@ const Home = () => {
     };
 
     const fetchMarvelMovies = async () => {
-      // Vamos criar uma função que busca filmes do universo Marvel (exemplo).
       const marvelData = await getMarvelMovies();
       setMarvelMovies(marvelData);
     };
@@ -31,10 +29,10 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="home-page bg-gray-900 text-white p-4">
-      <Carousel title="Séries em Alta" items={popularSeries} />
-      <Carousel title="Filmes em Alta" items={popularMovies} />
-      <Carousel title="Universo Marvel" items={marvelMovies} />
+    <div className="bg-gray-900 text-white pl-4 2xl:pl-20 flex flex-col gap-10 ">
+      <Carousel title="Séries em Alta" items={popularSeries} type="serie" />
+      <Carousel title="Filmes em Alta" items={popularMovies} type="movie" />
+      <Carousel title="Universo Marvel" items={marvelMovies} type="movie" />
     </div>
   );
 };
