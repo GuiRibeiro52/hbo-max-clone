@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import tmdb from '../api/tmdb';
 import Carousel from '../components/Carousel';
@@ -91,7 +91,6 @@ const SerieDetail = () => {
         </div>
       </div>
 
-      
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
@@ -116,19 +115,25 @@ const SerieDetail = () => {
         </div>
       </Modal>
 
-      
       <div className="p-10 bg-gradient-to-b from-black via-purple100 to-black">
-        <Carousel
-          title="Temporadas"
-          items={seasons.map((season) => ({
-            id: season.id,
-            poster_path: season.poster_path,
-            name: season.name,
-            overview: season.overview,
-          }))}
-          type="season"/>
+        <h2 className="text-3xl font-semibold mb-4">Temporadas</h2>
+        <div className="flex gap-6">
+          {seasons.map((season) => (
+            <Link 
+              key={season.id}
+              to={`/serie/${id}/season/${season.season_number}`} 
+              className="season-item"
+            >
+              <img 
+                src={`https://image.tmdb.org/t/p/w300${season.poster_path}`} 
+                alt={season.name} 
+                className="rounded-lg w-[240px] h-[361px]" 
+              />
+              <p className="text-center mt-2">{season.name}</p>
+            </Link>
+          ))}
+        </div>
 
-        
         <Carousel title="Similares" items={similarSeries} type="serie" />
       </div>
     </div>

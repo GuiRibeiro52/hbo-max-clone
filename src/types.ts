@@ -37,4 +37,16 @@ export interface Season {
   season_number: number;
   episode_count: number;
   air_date?: string;
+  episodes?: Episode[]; 
+}
+
+export interface Episode {
+  id: number;
+  name: string;
+  overview: string;
+  episode_number: number;
+  season_number: number;
+  still_path?: string; 
+  runtime?: number; 
+  air_date?: string; 
 }
