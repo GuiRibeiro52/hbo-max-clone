@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { getPopularMovies, getPopularSeries, getMarvelMovies } from '../api/tmdb';
+import { getPopularMovies, getPopularSeries, getMarvelMovies, getTrending } from '../api/tmdb';
 import Carousel from '../components/Carousel';
 
 const Home = () => {
   const [popularMovies, setPopularMovies] = useState([]);
   const [popularSeries, setPopularSeries] = useState([]);
   const [marvelMovies, setMarvelMovies] = useState([]);
+  const [trending, setTrending] = useState([]); 
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -23,13 +24,20 @@ const Home = () => {
       setMarvelMovies(marvelData);
     };
 
+    const fetchTrending = async () => {
+      const trendingData = await getTrending();
+      setTrending(trendingData);
+    };
+
     fetchMovies();
     fetchSeries();
     fetchMarvelMovies();
+    fetchTrending();
   }, []);
 
   return (
     <div className="bg-gray-900 text-white pl-4 2xl:pl-20 flex flex-col gap-10 ">
+      <Carousel title="Tendências da Semana" items={trending} type="movie" isLarge={true} />
       <Carousel title="Séries em Alta" items={popularSeries} type="serie" />
       <Carousel title="Filmes em Alta" items={popularMovies} type="movie" />
       <Carousel title="Universo Marvel" items={marvelMovies} type="movie" />

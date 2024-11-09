@@ -35,8 +35,6 @@ export const getPopularSeries = async () => {
   }
 };
 
-
-
 export const getMarvelMovies = async () => {
   try {
     const response = await tmdb.get('/discover/movie', {
@@ -51,5 +49,15 @@ export const getMarvelMovies = async () => {
   }
 };
 
+
+export const getTrending = async () => {
+  try {
+    const response = await tmdb.get('/trending/all/day'); 
+    return response.data.results;
+  } catch (error) {
+    console.error('Erro ao buscar filmes em tendência:', error);
+    return [];
+  }
+};
 
 export default tmdb;
