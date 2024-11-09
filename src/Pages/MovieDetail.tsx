@@ -80,7 +80,7 @@ const MovieDetail = () => {
             <div className="flex gap-4">
               <button
                 onClick={handlePlay}
-                className="flex items-center text-black font-semibold py-2 px-4  rounded-lg"                >
+                className="flex items-center text-black font-semibold py-2 px-4 rounded-lg"                >
                 <img src="/src/assets/images/play.svg" alt="Play" className="w-16 h-16 mr-2" />
               </button>
             </div>

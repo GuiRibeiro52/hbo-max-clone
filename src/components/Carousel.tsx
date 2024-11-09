@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 interface CarouselSectionProps {
   title: string;
   items: Array<{ id: number; title?: string; name?: string; poster_path?: string; backdrop_path?: string }>;
-  type: 'movie' | 'serie';
+  type: 'movie' | 'serie' | 'season';
   isLarge?: boolean; 
 }
 
 const Carousel: React.FC<CarouselSectionProps> = ({ title, items, type, isLarge = false }) => {
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: isLarge ? 3.5 : 6, 
     slidesToScroll: 1,

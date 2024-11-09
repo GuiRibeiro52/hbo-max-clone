@@ -18,11 +18,23 @@ export interface Movie extends MediaItem {
 export interface Serie extends MediaItem {
   name: string;
   first_air_date: string;
+  number_of_seasons: number; 
+  seasons: Season[]; 
 }
 
 export interface Video {
   id: string;
-  key: string; 
-  site: string; 
-  type: string; 
+  key: string;
+  site: string;
+  type: string;
+}
+
+export interface Season {
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string;
+  season_number: number;
+  episode_count: number;
+  air_date?: string;
 }
