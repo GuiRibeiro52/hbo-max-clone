@@ -14,7 +14,7 @@ const Carousel: React.FC<CarouselSectionProps> = ({ title, items, type, isLarge 
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: isLarge ? 2.5 : 5, 
+    slidesToShow: isLarge ? 3.5 : 6, 
     slidesToScroll: 1,
     responsive: [
       { breakpoint: 1440, settings: { slidesToShow: isLarge ? 2 : 4, slidesToScroll: 1 } },
@@ -26,7 +26,7 @@ const Carousel: React.FC<CarouselSectionProps> = ({ title, items, type, isLarge 
   };
 
   return (
-    <div className="max-w-[1512px] m-1">
+    <div className="m-1">
       <h2 className="text-xl font-semibold mb-4 text-white">{title}</h2>
       <Slider {...settings}>
         {items.map((item) => (
