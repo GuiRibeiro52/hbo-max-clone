@@ -15,6 +15,7 @@ const tmdb = axios.create({
   },
 });
 
+
 export const getPopularMovies = async () => {
   try {
     const response = await tmdb.get('/movie/popular');
@@ -24,6 +25,7 @@ export const getPopularMovies = async () => {
     return [];
   }
 };
+
 
 export const getPopularSeries = async () => {
   try {
@@ -35,11 +37,12 @@ export const getPopularSeries = async () => {
   }
 };
 
+
 export const getMarvelMovies = async () => {
   try {
     const response = await tmdb.get('/discover/movie', {
       params: {
-        with_keywords: '180547', 
+        with_keywords: '180547',
       },
     });
     return response.data.results;
@@ -52,10 +55,65 @@ export const getMarvelMovies = async () => {
 
 export const getTrending = async () => {
   try {
-    const response = await tmdb.get('/trending/all/day'); 
+    const response = await tmdb.get('/trending/all/day');
     return response.data.results;
   } catch (error) {
     console.error('Erro ao buscar filmes em tendência:', error);
+    return [];
+  }
+};
+
+
+export const getTrendingSeries = async () => {
+  try {
+    const response = await tmdb.get('/trending/tv/day');
+    return response.data.results;
+  } catch (error) {
+    console.error('Erro ao buscar séries em tendência:', error);
+    return [];
+  }
+};
+
+
+export const getTopRatedMovies = async () => {
+  try {
+    const response = await tmdb.get('/movie/top_rated');
+    return response.data.results;
+  } catch (error) {
+    console.error('Erro ao buscar filmes mais bem avaliados:', error);
+    return [];
+  }
+};
+
+
+export const getTopRatedSeries = async () => {
+  try {
+    const response = await tmdb.get('/tv/top_rated');
+    return response.data.results;
+  } catch (error) {
+    console.error('Erro ao buscar séries mais bem avaliadas:', error);
+    return [];
+  }
+};
+
+
+export const getUpcomingMovies = async () => {
+  try {
+    const response = await tmdb.get('/movie/upcoming');
+    return response.data.results;
+  } catch (error) {
+    console.error('Erro ao buscar filmes em breve:', error);
+    return [];
+  }
+};
+
+
+export const getUpcomingSeries = async () => {
+  try {
+    const response = await tmdb.get('/tv/on_the_air');
+    return response.data.results;
+  } catch (error) {
+    console.error('Erro ao buscar séries em breve:', error);
     return [];
   }
 };
