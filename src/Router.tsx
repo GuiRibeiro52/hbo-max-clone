@@ -3,7 +3,9 @@ import App from "./App.tsx";
 import Home from "./Pages/Home.tsx";
 import MovieDetail from "./Pages/MovieDetail.tsx";
 import SerieDetail from "./Pages/SerieDetail.tsx";
-import SeasonEpisodes from "./Pages/SeasonEpisodes.tsx"; 
+import SeasonEpisodes from "./Pages/SeasonEpisodes.tsx";
+import Movies from "./Pages/Movies.tsx";
+import Series from "./Pages/Series.tsx"; 
 
 export const router = createBrowserRouter([
   {
@@ -23,8 +25,16 @@ export const router = createBrowserRouter([
         element: <SerieDetail />,
       },
       {
-        path: "/serie/:id/season/:seasonNumber", 
+        path: "/serie/:id/season/:seasonNumber",
         element: <SeasonEpisodes />,
+      },
+      {
+        path: "/movies",
+        element: <Movies />, 
+      },
+      {
+        path: "/series",
+        element: <Series />, 
       },
     ],
   },
