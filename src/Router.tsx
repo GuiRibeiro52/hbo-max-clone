@@ -7,6 +7,7 @@ import SeasonEpisodes from "./Pages/SeasonEpisodes.tsx";
 import Movies from "./Pages/Movies.tsx";
 import Series from "./Pages/Series.tsx"; 
 import GenrePage from "./Pages/GenrePage.tsx";
+import SearchResults from "./Pages/SearchResults.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "/genre/:genreName",
         element: <GenrePage />, 
+      },
+      {
+        path: "/search/:query",
+        element: <SearchResults />, 
       },
     ],
   },

@@ -16,7 +16,7 @@ module.exports = {
         gradientBlue: 'linear-gradient(0deg, #1400FF, #72AAFF)',
         blueAlt: 'linear-gradient(0deg, #4710C1, #7857FF, #819BFD)',
         gradientPink: 'linear-gradient(1deg, #FC00C4, #FF8CE6)',
-        gradientBanner: 'linear-gradient(to right, black, transparent, black)', // Gradiente personalizado
+        gradientBanner: 'linear-gradient(to right, black, transparent, black)', 
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],

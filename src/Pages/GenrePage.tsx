@@ -35,7 +35,7 @@ const GenrePage = () => {
   }, [genreName]);
 
   return (
-    <div className="text-white mx-auto flex flex-col min-h-screen via-purple100 to-black">
+    <div className="text-white mx-auto flex flex-col min-h-screen ">
       {randomItem && (
         <Banner
           title={randomItem.title || randomItem.name || "Título indisponível"}
