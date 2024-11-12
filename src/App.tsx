@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "./components/Header";
+import ScrollToTopButton from "./components/ScrollToTopButton";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -7,7 +9,9 @@ function App() {
       <div className="mx-auto"> 
         <Header/>
         <Outlet />
+        <Footer />
       </div>
+      <ScrollToTopButton />
     </div>
   );
 }

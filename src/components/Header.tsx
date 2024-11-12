@@ -34,7 +34,7 @@ const Header = () => {
 
 
       <Link to="/" className="flex-grow flex justify-center">
-        <img src={logoIcon} alt="Logo" className="h-16" />
+        <img src={logoIcon} alt="Logo" className="h-24" />
       </Link>
 
      
