@@ -76,6 +76,7 @@ const SerieDetail = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent  to-black" />
         <div className="absolute bottom-16 left-10 text-white w-[741px] z-10 ml-32">
           <h1 className="text-5xl font-bold mb-4">{serie.name}</h1>
+          <p className="text-lg font-semibold mb-4">Série</p>
           <p className="text-lg mb-4">
             {serie.first_air_date?.slice(0, 4)} • {serie.number_of_seasons} temporada(s)
           </p>

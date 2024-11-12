@@ -23,7 +23,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         <h2 className="p-4 space-y-2 text-2xl">CATEGORIAS</h2>
         <Link to="/series" onClick={onClose} className="text-white block py-2">Series</Link>
         <Link to="/movies" onClick={onClose} className="text-white block py-2">Filmes</Link>
-        <Link to="/trending" onClick={onClose} className="text-white block py-2">Trending</Link>
         <Link to="/genre/acao" onClick={onClose} className="text-white block py-2">Ação</Link>
         <Link to="/genre/animacao" onClick={onClose} className="text-white block py-2">Animação</Link>
         <Link to="/genre/comedia" onClick={onClose} className="text-white block py-2">Comédia</Link>

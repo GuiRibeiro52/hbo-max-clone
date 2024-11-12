@@ -63,6 +63,9 @@ const Banner: React.FC<BannerProps> = ({ title, description, backdrop_path, id, 
       
       <div className="absolute bottom-16 left-10 text-white w-[741px] z-10 ml-32">
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
+        <p className="text-lg font-semibold mb-4">
+          {type === 'movie' ? 'Filme' : 'Série'}
+        </p>
         <p className="text-lg mb-6">{description}</p>
 
         <div className="flex gap-4 items-center">

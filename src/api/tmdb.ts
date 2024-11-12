@@ -16,6 +16,18 @@ const tmdb = axios.create({
 });
 
 
+const genreMap: { [key: string]: number } = {
+  acao: 28,
+  animacao: 16,
+  comedia: 35,
+  documentario: 99,
+  drama: 18,
+  "ficcao-cientifica": 878,
+  horror: 27,
+  romance: 10749,
+};
+
+
 export const getPopularMovies = async () => {
   try {
     const response = await tmdb.get('/movie/popular');
@@ -26,7 +38,6 @@ export const getPopularMovies = async () => {
   }
 };
 
-
 export const getPopularSeries = async () => {
   try {
     const response = await tmdb.get('/tv/popular');
@@ -36,7 +47,6 @@ export const getPopularSeries = async () => {
     return [];
   }
 };
-
 
 export const getMarvelMovies = async () => {
   try {
@@ -52,7 +62,6 @@ export const getMarvelMovies = async () => {
   }
 };
 
-
 export const getTrending = async () => {
   try {
     const response = await tmdb.get('/trending/all/day');
@@ -62,7 +71,6 @@ export const getTrending = async () => {
     return [];
   }
 };
-
 
 export const getTrendingSeries = async () => {
   try {
@@ -74,7 +82,6 @@ export const getTrendingSeries = async () => {
   }
 };
 
-
 export const getTopRatedMovies = async () => {
   try {
     const response = await tmdb.get('/movie/top_rated');
@@ -84,7 +91,6 @@ export const getTopRatedMovies = async () => {
     return [];
   }
 };
-
 
 export const getTopRatedSeries = async () => {
   try {
@@ -96,7 +102,6 @@ export const getTopRatedSeries = async () => {
   }
 };
 
-
 export const getUpcomingMovies = async () => {
   try {
     const response = await tmdb.get('/movie/upcoming');
@@ -107,13 +112,43 @@ export const getUpcomingMovies = async () => {
   }
 };
 
-
 export const getUpcomingSeries = async () => {
   try {
     const response = await tmdb.get('/tv/on_the_air');
     return response.data.results;
   } catch (error) {
     console.error('Erro ao buscar séries em breve:', error);
+    return [];
+  }
+};
+
+
+export const getMoviesByGenre = async (genreName: string) => {
+  try {
+    const genreId = genreMap[genreName.toLowerCase()];
+    if (!genreId) throw new Error(`Gênero ${genreName} não encontrado.`);
+    
+    const response = await tmdb.get('/discover/movie', {
+      params: { with_genres: genreId },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error(`Erro ao buscar filmes do gênero ${genreName}:`, error);
+    return [];
+  }
+};
+
+export const getSeriesByGenre = async (genreName: string) => {
+  try {
+    const genreId = genreMap[genreName.toLowerCase()];
+    if (!genreId) throw new Error(`Gênero ${genreName} não encontrado.`);
+    
+    const response = await tmdb.get('/discover/tv', {
+      params: { with_genres: genreId },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error(`Erro ao buscar séries do gênero ${genreName}:`, error);
     return [];
   }
 };
