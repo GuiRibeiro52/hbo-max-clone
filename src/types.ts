@@ -13,6 +13,7 @@ export interface Movie extends MediaItem {
   title: string;
   release_date: string;
   runtime: number; 
+  adult?: boolean;
 }
 
 export interface Serie extends MediaItem {
@@ -61,4 +62,11 @@ export interface Movie extends MediaItem {
   title: string;
   release_date: string;
   runtime: number; 
+}
+
+export interface CastMember {
+  cast_id: number;
+  character: string;
+  name: string;
+  profile_path?: string;
 }

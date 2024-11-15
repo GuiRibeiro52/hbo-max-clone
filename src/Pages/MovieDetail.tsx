@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 import tmdb, { getWatchProviders } from '../api/tmdb';
 import Carousel from '../components/Carousel';
-import { Movie, Video, WatchProvider } from '../types';
+import { Movie, Video, WatchProvider, CastMember} from '../types';
 
 Modal.setAppElement('#root');
 
@@ -11,9 +11,15 @@ const MovieDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [movie, setMovie] = useState<Movie | null>(null);
   const [similarMovies, setSimilarMovies] = useState<Movie[]>([]);
+  const [cast, setCast] = useState<CastMember[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
   const [providers, setProviders] = useState<WatchProvider[]>([]);
+
+  const formatDateToBR = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  };
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -34,6 +40,15 @@ const MovieDetail = () => {
       }
     };
 
+    const fetchCredits = async () => {
+      try {
+        const response = await tmdb.get(`/movie/${id}/credits`);
+        setCast(response.data.cast.slice(0, 5));
+      } catch (error) {
+        console.error('Erro ao buscar elenco e equipe:', error);
+      }
+    };
+
     const fetchWatchProviders = async () => {
       const providerData = await getWatchProviders(Number(id), 'movie');
       if (providerData && providerData['BR']) {
@@ -48,6 +63,7 @@ const MovieDetail = () => {
 
     fetchMovieDetails();
     fetchSimilarMovies();
+    fetchCredits();
     fetchWatchProviders();
   }, [id]);
 
@@ -80,16 +96,18 @@ const MovieDetail = () => {
   return (
     <div className="text-white min-h-screen">
       <div
-        className="relative h-[600px] w-full bg-cover bg-center"
+        className="relative h-[800px] w-full bg-cover bg-center"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
-        }}>
+        }}
+      >
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
         <div className="absolute bottom-16 left-10 text-white w-[741px] z-10 ml-32">
           <h1 className="text-5xl font-bold mb-4">{movie.title}</h1>
-          <p className="text-lg font-semibold mb-4">Filme</p>
-          <p className="text-lg mb-4">
-            {movie.release_date?.slice(0, 4)} • {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min
+          <p className="text-xl font-semibold mb-4">Filme</p>
+          <p className="text-lg mb-4">Data de lançamento: {formatDateToBR(movie.release_date)}</p>
+          <p className="text-sm mb-4">
+            {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min • {movie.adult ? '18+' : 'Livre'}
           </p>
           <p className="text-lg mb-6">{movie.overview}</p>
           <div className="flex gap-10 items-center">
@@ -99,10 +117,9 @@ const MovieDetail = () => {
               <img src="/src/assets/images/play.svg" alt="Play" className="w-16 h-16 mr-2" />
             </button>
 
-            
             <div className="flex flex-col items-center gap-2">
               <h3>Onde Assistir?</h3>
-              <div className='flex gap-4'>
+              <div className="flex gap-4">
                 {providers.slice(0, 5).map((provider) => (
                   <img
                     key={provider.provider_id}
@@ -126,7 +143,8 @@ const MovieDetail = () => {
         onRequestClose={closeModal}
         contentLabel="Trailer"
         className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-75 z-50">
+        overlayClassName="fixed inset-0 bg-black bg-opacity-75 z-50"
+      >
         <div className="relative w-full max-w-3xl h-[500px]">
           {trailerUrl ? (
             <iframe
@@ -144,7 +162,20 @@ const MovieDetail = () => {
         </div>
       </Modal>
 
-      <div className="p-10 bg-gradient-to-b from-black via-purple100 to-black">
+      <div className="p-10 bg-gradient-to-b from-black via-purple100 to-black">        
+        <div className='flex flex-col items-center gap-10'>
+          <h2 className="text-3xl font-semibold mb-4">Detalhes do Elenco</h2>
+          <div className="flex justify-center gap-4">
+            {cast.map((member) => (
+              <div key={member.cast_id} className="text-center">
+                <img src={`https://image.tmdb.org/t/p/w200${member.profile_path}`} alt={member.name} className="w-[240px] h-[361px] rounded-lg" />
+                <p>{member.name}</p>
+                <p className="text-gray-400 text-sm">{member.character}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <Carousel title="Similares" items={similarMovies} type="movie" />
       </div>
     </div>

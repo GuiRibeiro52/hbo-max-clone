@@ -5,14 +5,14 @@ import { FaWhatsapp, FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa';
 const Footer = () => {
   return (
     <footer className="bg-black text-white py-8 px-4">
-      <div className="container mx-auto text-center max-w-[1000px]">
+      <div className="container mx-auto text-center max-w-[280px] sm:max-w-[610px] md:max-w-[740px] lg:max-w-[1024px]">
         
         <div className="flex justify-center mb-4">
           <img src={logoIcon} alt="Logo" className="h-24" />
         </div>
 
         
-        <div className="flex justify-center gap-10 space-x-6 mb-6 text-displaySmallBold">
+        <div className="flex justify-center gap-10 lg:space-x-6 mb-6 text-displaySmallBold">
           <Link to="/" className="hover:text-gray-400">Home</Link>
           <Link to="/movies" className="hover:text-gray-400">Filmes</Link>
           <Link to="/series" className="hover:text-gray-400">Séries</Link>
@@ -23,7 +23,7 @@ const Footer = () => {
         </p>
 
         
-        <div className="flex justify-center space-x-4 mb-10 gap-20">
+        <div className="grid grid-cols-2 ml-9 sm:flex sm:justify-center sm:space-x-4 mb-10 gap-20">
           <a href="https://wa.me/+5516994664262" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-gray-300">
             <FaWhatsapp size={36} />
           </a>

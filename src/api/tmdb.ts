@@ -15,7 +15,6 @@ const tmdb = axios.create({
   },
 });
 
-
 const genreMap: { [key: string]: number } = {
   acao: 28,
   animacao: 16,
@@ -26,7 +25,6 @@ const genreMap: { [key: string]: number } = {
   horror: 27,
   romance: 10749,
 };
-
 
 export const getPopularMovies = async () => {
   try {
@@ -51,9 +49,7 @@ export const getPopularSeries = async () => {
 export const getMarvelMovies = async () => {
   try {
     const response = await tmdb.get('/discover/movie', {
-      params: {
-        with_keywords: '180547',
-      },
+      params: { with_keywords: '180547' },
     });
     return response.data.results;
   } catch (error) {
@@ -121,7 +117,6 @@ export const getUpcomingSeries = async () => {
     return [];
   }
 };
-
 
 export const getMoviesByGenre = async (genreName: string) => {
   try {
