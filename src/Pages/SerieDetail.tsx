@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Modal from 'react-modal';
-import tmdb from '../api/tmdb';
+import tmdb, { getWatchProviders } from '../api/tmdb';
 import Carousel from '../components/Carousel';
-import { Serie, Season, Video } from '../types';
+import { Serie, Season, Video, WatchProvider } from '../types';
 
 Modal.setAppElement('#root');
 
@@ -14,6 +14,7 @@ const SerieDetail = () => {
   const [similarSeries, setSimilarSeries] = useState<Serie[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
+  const [providers, setProviders] = useState<WatchProvider[]>([]);
 
   useEffect(() => {
     const fetchSerieDetails = async () => {
@@ -35,8 +36,21 @@ const SerieDetail = () => {
       }
     };
 
+    const fetchWatchProviders = async () => {
+      const providerData = await getWatchProviders(Number(id), 'tv');
+      if (providerData && providerData['BR']) {
+        const allProviders = [
+          ...(providerData['BR'].flatrate || []),
+          ...(providerData['BR'].buy || []),
+          ...(providerData['BR'].rent || []),
+        ];
+        setProviders(allProviders);
+      }
+    };
+
     fetchSerieDetails();
     fetchSimilarSeries();
+    fetchWatchProviders();
   }, [id]);
 
   const handlePlay = async () => {
@@ -73,7 +87,7 @@ const SerieDetail = () => {
           backgroundImage: `url(https://image.tmdb.org/t/p/original${serie.backdrop_path})`,
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent  to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
         <div className="absolute bottom-16 left-10 text-white w-[741px] z-10 ml-32">
           <h1 className="text-5xl font-bold mb-4">{serie.name}</h1>
           <p className="text-lg font-semibold mb-4">Série</p>
@@ -82,12 +96,31 @@ const SerieDetail = () => {
           </p>
           <p className="text-lg mb-6">{serie.overview}</p>
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
             <button
               onClick={handlePlay}
-              className="flex items-center text-black font-semibold py-2 px-4  rounded-lg">
+              className="flex items-center text-black font-semibold py-2 px-4 rounded-lg">
               <img src="/src/assets/images/play.svg" alt="Play" className="w-16 h-16 mr-2" />              
             </button>
+
+            
+            <div className="flex flex-col items-center gap-2">
+              <h3>Onde Assistir?</h3>
+              <div className='flex gap-4'>
+                {providers.slice(0, 5).map((provider) => (
+                  <img
+                    key={provider.provider_id}
+                    src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                    alt={provider.provider_name}
+                    className="w-12 h-12 rounded-full"
+                    title={provider.provider_name}
+                  />
+                ))}
+                {providers.length > 5 && (
+                  <span className="text-sm text-gray-300">+{providers.length - 5} mais</span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -117,23 +150,17 @@ const SerieDetail = () => {
       </Modal>
 
       <div className="p-10 bg-gradient-to-b from-black via-purple100 to-black">
-        <h2 className="text-3xl font-semibold mb-4">Temporadas</h2>
-        <div className="flex gap-6">
-          {seasons.map((season) => (
-            <Link 
-              key={season.id}
-              to={`/serie/${id}/season/${season.season_number}`} 
-              className="season-item"
-            >
-              <img 
-                src={`https://image.tmdb.org/t/p/w300${season.poster_path}`} 
-                alt={season.name} 
-                className="rounded-lg w-[240px] h-[361px]" 
-              />
-              <p className="text-center mt-2">{season.name}</p>
-            </Link>
-          ))}
-        </div>
+        
+        <Carousel
+          title="Temporadas"
+          items={seasons.map((season) => ({
+            id: season.id,
+            title: season.name,
+            poster_path: season.poster_path,
+            backdrop_path: season.poster_path,
+          }))}
+          type="season"
+        />
 
         <Carousel title="Similares" items={similarSeries} type="serie" />
       </div>

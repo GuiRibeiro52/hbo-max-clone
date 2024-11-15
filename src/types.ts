@@ -50,3 +50,15 @@ export interface Episode {
   runtime?: number; 
   air_date?: string; 
 }
+
+export interface WatchProvider {
+  provider_id: number;
+  provider_name: string;
+  logo_path: string;
+}
+
+export interface Movie extends MediaItem {
+  title: string;
+  release_date: string;
+  runtime: number; 
+}

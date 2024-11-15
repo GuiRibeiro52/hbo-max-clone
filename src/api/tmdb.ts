@@ -153,4 +153,14 @@ export const getSeriesByGenre = async (genreName: string) => {
   }
 };
 
+export const getWatchProviders = async (id: number, type: 'movie' | 'tv') => {
+  try {
+    const response = await tmdb.get(`/${type}/${id}/watch/providers`);
+    return response.data.results; 
+  } catch (error) {
+    console.error('Erro ao buscar provedores de exibição:', error);
+    return null;
+  }
+};
+
 export default tmdb;
