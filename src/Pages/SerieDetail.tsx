@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import tmdb, { getWatchProviders } from '../api/tmdb';
 import Carousel from '../components/Carousel';
 import { Serie, Season, Video, WatchProvider, CastMember } from '../types';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 Modal.setAppElement('#root');
 
@@ -16,6 +17,8 @@ const SerieDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
   const [providers, setProviders] = useState<WatchProvider[]>([]);
+  const [currentPage, setCurrentPage] = useState(1); 
+  const seasonsPerPage = 8; 
 
   const formatDateToBR = (dateString: string): string => {
     const date = new Date(dateString);
@@ -89,6 +92,21 @@ const SerieDetail = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     setTrailerUrl(null);
+  };
+
+  
+  const indexOfLastSeason = currentPage * seasonsPerPage;
+  const indexOfFirstSeason = indexOfLastSeason - seasonsPerPage;
+  const currentSeasons = seasons.slice(indexOfFirstSeason, indexOfLastSeason);
+
+  
+  const totalPages = Math.ceil(seasons.length / seasonsPerPage);
+
+  
+  const handlePageChange = (newPage: number) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
   };
 
   if (!serie) {
@@ -170,7 +188,7 @@ const SerieDetail = () => {
           <h2 className="mt-[100px] sm:mt-0 text-3xl font-semibold mb-4">Detalhes do Elenco</h2>
           <div className="grid grid-cols-1 items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:flex justify-center gap-4">
             {cast.map((member) => (
-              <div key={member.cast_id} className="text-center">
+              <div key={member.cast_id} className="flex flex-col items-center text-center">
                 <img
                   src={`https://image.tmdb.org/t/p/w200${member.profile_path}`}
                   alt={member.name}
@@ -184,19 +202,42 @@ const SerieDetail = () => {
         </div>
 
         <h2 className="text-3xl font-semibold mb-4">Temporadas</h2>
-        <div className="mx-auto grid max-w-[1200px] grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 mb-20">
-          {seasons.map((season) => (
-          <Link to={`/serie/${id}/season/${season.season_number}`} key={season.id}>
-            <div className="flex flex-col items-center">
-              <img
-                src={`https://image.tmdb.org/t/p/w300${season.poster_path}`}
-                alt={season.name}
-                className="rounded-lg w-[240px] h-[361px] cursor-pointer"
-              />
-              <p className="text-center mt-2">{season.name}</p>
-            </div>
-          </Link>
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 mb-6">
+          {currentSeasons.map((season) => (
+            <Link to={`/serie/${id}/season/${season.season_number}`} key={season.id}>
+              <div className="flex flex-col items-center">
+                <img
+                  src={`https://image.tmdb.org/t/p/w300${season.poster_path}`}
+                  alt={season.name}
+                  className="rounded-lg w-[240px] h-[361px] cursor-pointer"
+                />
+                <p className="text-center mt-2">{season.name}</p>
+              </div>
+            </Link>
           ))}
+        </div>
+
+       
+        <div className="flex justify-center items-center mt-4 gap-4">
+          {currentPage > 1 && (
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              className="p-2 bg-gray-700 rounded-full hover:bg-gray-600 disabled:opacity-50"
+            >
+              <FaArrowLeft size={20} />
+            </button>
+          )}
+          <span className="text-textMediumBold">
+            Página {currentPage} de {totalPages}
+          </span>
+          {currentPage < totalPages && (
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              className="p-2 bg-gray-700 rounded-full hover:bg-gray-600 disabled:opacity-50"
+            >
+              <FaArrowRight size={20} />
+            </button>
+          )}
         </div>
 
         <Carousel title="Similares" items={similarSeries} type="serie" />

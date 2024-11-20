@@ -61,7 +61,7 @@ const Banner: React.FC<BannerProps> = ({ title, description, backdrop_path, id, 
     >
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
       
-      <div className="absolute bottom-16 left-10 text-white w-[280px] sm:w-[500px] md:w-[741px] z-10 md:ml-32">
+      <div className="absolute bottom-16 left-10 text-white w-[280px] sm:w-[500px] md:w-[721px] z-10 md:ml-8">
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
         <p className="text-lg font-semibold mb-4">
           {type === 'movie' ? 'Filme' : 'Série'}

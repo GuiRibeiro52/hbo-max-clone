@@ -167,7 +167,7 @@ const MovieDetail = () => {
           <h2 className="mt-[100px] sm:mt-0 text-3xl font-semibold mb-4">Detalhes do Elenco</h2>
           <div className="grid grid-cols-1 items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:flex justify-center gap-4">
             {cast.map((member) => (
-              <div key={member.cast_id} className="text-center">
+              <div key={member.cast_id} className="flex flex-col items-center text-center">
                 <img src={`https://image.tmdb.org/t/p/w200${member.profile_path}`} alt={member.name} className="w-[240px] h-[361px] rounded-lg" />
                 <p>{member.name}</p>
                 <p className="text-gray-400 text-sm">{member.character}</p>
