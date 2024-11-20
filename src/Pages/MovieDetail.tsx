@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import tmdb, { getWatchProviders } from '../api/tmdb';
 import Carousel from '../components/Carousel';
 import { Movie, Video, WatchProvider, CastMember} from '../types';
+import play from '../assets/images/play.svg'
 
 Modal.setAppElement('#root');
 
@@ -114,7 +115,7 @@ const MovieDetail = () => {
             <button
               onClick={handlePlay}
               className="flex items-center text-black font-semibold py-2 px-4 rounded-lg">
-              <img src="/src/assets/images/play.svg" alt="Play" className="w-16 h-16 mr-2" />
+              <img src={play} alt="Play" className="w-16 h-16 mr-2" />
             </button>
 
             <div className="flex flex-col items-center gap-2">

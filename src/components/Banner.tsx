@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import tmdb from '../api/tmdb';
+import play from '../assets/images/play.svg'
 
 Modal.setAppElement('#root');
 
@@ -73,7 +74,7 @@ const Banner: React.FC<BannerProps> = ({ title, description, backdrop_path, id, 
             onClick={handlePlay}
             className="flex items-center text-black font-semibold py-2 px-4 rounded-lg"
           >
-            <img src="/src/assets/images/play.svg" alt="Play" className="w-16 h-16" />            
+            <img src={play} alt="Play" className="w-16 h-16" />            
           </button>
 
           <button
