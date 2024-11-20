@@ -47,7 +47,7 @@ const SearchResults = () => {
 
   return (
     <div className="p-10 text-white min-h-screen bg-gradient-to-b from-black via-purple100 to-black">
-      <h1 className="text-2xl text-gray-500 font-bold mb-10 mt-20">
+      <h1 className="text-2xl text-gray-500 font-bold mb-10 mt-32">
         Resultados para sua busca: <span className="text-white">"{query}"</span>
       </h1>
       

@@ -96,21 +96,21 @@ const MovieDetail = () => {
   return (
     <div className="text-white min-h-screen">
       <div
-        className="relative h-[800px] w-full bg-cover bg-center"
+        className="relative h-[400px] md:h-[800px] w-full bg-cover bg-center"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
-        <div className="absolute bottom-16 left-10 text-white w-[741px] z-10 ml-32">
-          <h1 className="text-5xl font-bold mb-4">{movie.title}</h1>
+        <div className="absolute w-[280px] md:bottom-16 sm:w-[400px] md:w-[600px] lg:left-10 text-white lg:w-[741px] z-10 mt-32 m-8 sm:mt-52">
+          <h1 className="text-lg sm:text-5xl font-bold mb-4 mt-10 sm:mt-0">{movie.title}</h1>
           <p className="text-xl font-semibold mb-4">Filme</p>
           <p className="text-lg mb-4">Data de lançamento: {formatDateToBR(movie.release_date)}</p>
           <p className="text-sm mb-4">
             {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min • {movie.adult ? '18+' : 'Livre'}
           </p>
           <p className="text-lg mb-6">{movie.overview}</p>
-          <div className="flex gap-10 items-center">
+          <div className="grid sm:flex gap-10 sm:items-center">
             <button
               onClick={handlePlay}
               className="flex items-center text-black font-semibold py-2 px-4 rounded-lg">
@@ -119,7 +119,7 @@ const MovieDetail = () => {
 
             <div className="flex flex-col items-center gap-2">
               <h3>Onde Assistir?</h3>
-              <div className="flex gap-4">
+              <div className="grid grid-cols-4 sm:flex gap-4">
                 {providers.slice(0, 5).map((provider) => (
                   <img
                     key={provider.provider_id}
@@ -162,10 +162,10 @@ const MovieDetail = () => {
         </div>
       </Modal>
 
-      <div className="p-10 bg-gradient-to-b from-black via-purple100 to-black">        
-        <div className='flex flex-col items-center gap-10'>
-          <h2 className="text-3xl font-semibold mb-4">Detalhes do Elenco</h2>
-          <div className="flex justify-center gap-4">
+      <div className="pt-[300px] md:pt-[100px] p-10 bg-gradient-to-b from-black via-purple100 to-black">        
+        <div className='mb-10 flex flex-col items-center pt-32 md:pt-0'>
+          <h2 className="mt-[100px] sm:mt-0 text-3xl font-semibold mb-4">Detalhes do Elenco</h2>
+          <div className="grid grid-cols-1 items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:flex justify-center gap-4">
             {cast.map((member) => (
               <div key={member.cast_id} className="text-center">
                 <img src={`https://image.tmdb.org/t/p/w200${member.profile_path}`} alt={member.name} className="w-[240px] h-[361px] rounded-lg" />

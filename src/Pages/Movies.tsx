@@ -39,7 +39,7 @@ const Movies = () => {
   }, []);
 
   return (
-    <div className="text-white mx-auto flex flex-col min-h-screen ">
+    <div className="text-white mx-auto w-auto flex flex-col min-h-screen ">
       {randomMovie && (
         <Banner
           title={randomMovie.title || "Filme Indisponível"}

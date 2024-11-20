@@ -54,21 +54,21 @@ const Banner: React.FC<BannerProps> = ({ title, description, backdrop_path, id, 
 
   return (
     <div
-      className="relative h-[800px] w-full bg-cover bg-center"
+      className="relative h-[800px] w-auto bg-cover bg-center"
       style={{
         backgroundImage: `url(https://image.tmdb.org/t/p/original${backdrop_path})`,
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
       
-      <div className="absolute bottom-16 left-10 text-white w-[741px] z-10 ml-32">
+      <div className="absolute bottom-16 left-10 text-white w-[280px] sm:w-[500px] md:w-[741px] z-10 md:ml-32">
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
         <p className="text-lg font-semibold mb-4">
           {type === 'movie' ? 'Filme' : 'Série'}
         </p>
         <p className="text-lg mb-6">{description}</p>
 
-        <div className="flex gap-4 items-center">
+        <div className="flex flex-col sm:flex-row sm:gap-4 items-center">
           <button
             onClick={handlePlay}
             className="flex items-center text-black font-semibold py-2 px-4 rounded-lg"

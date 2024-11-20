@@ -21,37 +21,42 @@ const Header = () => {
   const handleSearchSubmit = () => {
     if (searchQuery.trim()) {
       navigate(`/search/${searchQuery}`);
-      setSearchQuery(''); 
+      setSearchQuery('');
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearchSubmit();
     }
   };
 
   return (
     <header className="absolute top-0 left-0 w-full flex items-center justify-between px-4 py-3 bg-transparent z-50">
-
       <button onClick={toggleSidebar} className="p-2 focus:outline-none">
         <img src={menuIcon} alt="Menu" className="w-6 h-6" />
       </button>
 
+      <div className="md:flex items-center gap-10">
+        <Link to="/" className="flex-grow flex justify-center">
+          <img src={logoIcon} alt="Logo" className="h-24" />
+        </Link>
 
-      <Link to="/" className="flex-grow flex justify-center">
-        <img src={logoIcon} alt="Logo" className="h-24" />
-      </Link>
-
-     
-      <div className="flex items-center space-x-2">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Buscar"
-          className="bg-gray-800 bg-opacity-50 text-white rounded-lg px-4 py-2 outline-none transition-all duration-300 ease-in-out"
-        />
-        <button onClick={handleSearchSubmit} className="p-2 focus:outline-none">
-          <img src={searchIcon} alt="Buscar" className="w-6 h-6" />
-        </button>
+        <div className="flex items-center space-x-2">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleKeyDown} 
+            placeholder="Buscar"
+            className="bg-gray-800 bg-opacity-50 text-white rounded-lg px-4 py-2 outline-none transition-all duration-300 ease-in-out"
+          />
+          <button onClick={handleSearchSubmit} className="p-2 focus:outline-none">
+            <img src={searchIcon} alt="Buscar" className="w-6 h-6" />
+          </button>
+        </div>
       </div>
 
-  
       <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
     </header>
   );

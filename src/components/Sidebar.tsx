@@ -9,7 +9,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   return (
     <div
-      className={`fixed inset-y-0 left-0 w-96 bg-gray-900 text-white transform ${
+      className={`fixed inset-y-0 left-0 w-[250px] sm:w-96 bg-gray-900 opacity-95 text-white transform ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       } transition-transform duration-700 ease-in-out z-50`}
     >

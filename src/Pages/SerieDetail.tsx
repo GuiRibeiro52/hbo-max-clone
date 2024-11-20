@@ -98,14 +98,14 @@ const SerieDetail = () => {
   return (
     <div className="text-white min-h-screen">
       <div
-        className="relative h-[400px] md:h-[600px] lg:h-[800px] w-full bg-cover bg-center"
+        className="relative h-[400px] md:h-[800px] w-full bg-cover bg-center"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original${serie.backdrop_path})`,
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
-        <div className="absolute w-[280px] md:bottom-16 sm:w-[400px] md:w-[600px] lg:left-10 text-white lg:w-[741px] z-10 mt-32 m-8 sm:m-32">
-          <h1 className="text-lg sm:text-5xl font-bold mb-4">{serie.name}</h1>
+        <div className="absolute w-[280px] md:bottom-16 sm:w-[400px] md:w-[600px] lg:left-10 text-white lg:w-[741px] z-10 mt-32 m-8 sm:mt-52">
+          <h1 className="text-lg sm:text-5xl font-bold mb-4 mt-10 sm:mt-0">{serie.name}</h1>
           <p className="text-xl font-semibold mb-4">Série</p>
           <p className="text-lg mb-4">Data de lançamento: {formatDateToBR(serie.first_air_date || '')}</p>
           <p className="text-sm mb-4">{serie.number_of_seasons} temporada(s)</p>
@@ -120,7 +120,7 @@ const SerieDetail = () => {
 
             <div className="flex flex-col items-center gap-2">
               <h3>Onde Assistir?</h3>
-              <div className="flex gap-4">
+              <div className="grid grid-cols-4 sm:flex gap-4">
                 {providers.slice(0, 5).map((provider) => (
                   <img
                     key={provider.provider_id}
@@ -165,8 +165,8 @@ const SerieDetail = () => {
         </div>
       </Modal>
 
-      <div className="pt-[300px] p-10 bg-gradient-to-b from-black via-purple100 to-black md:pt-0">
-        <div className="mb-10 flex flex-col items-center">
+      <div className="pt-[300px] md:pt-[100px] p-10 bg-gradient-to-b from-black via-purple100 to-black ">
+        <div className="mb-10 flex flex-col items-center pt-32 md:pt-0">
           <h2 className="mt-[100px] sm:mt-0 text-3xl font-semibold mb-4">Detalhes do Elenco</h2>
           <div className="grid grid-cols-1 items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:flex justify-center gap-4">
             {cast.map((member) => (

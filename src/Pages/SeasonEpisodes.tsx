@@ -55,9 +55,9 @@ const SeasonEpisodes = () => {
 
   return (
     <div className="text-white min-h-screen">
-        <div className="relative h-[800px] w-full bg-center bg-cover" style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${season.poster_path})`,}}>
+        <div className="relative h-[800px] w-auto bg-center bg-cover" style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${season.poster_path})`,}}>
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
-                <div className="absolute bottom-16 left-10 text-white w-[741px] z-10 ml-32">
+                <div className="absolute bottom-16 left-10 p-1 text-white sm:w-auto md:w-[741px] z-10 lg:ml-16">
                     <h1 className="text-5xl font-bold mb-4">{season.name}</h1>
                     <p className="text-lg mb-4">
                         {season.air_date?.slice(0, 4)} • {season.episode_count} episódios
@@ -96,22 +96,22 @@ const SeasonEpisodes = () => {
         </div>
       </Modal>
 
-      <div className="p-20 bg-gradient-to-b from-black via-purple100 to-black">
+      <div className="p-5 md:p-20 bg-gradient-to-b from-black via-purple100 to-black">
         <h2 className="text-2xl font-semibold mb-4">Episódios</h2>
-        <div className="flex flex-col items-center md:grid-cols-2 gap-4">
+        <div className="flex flex-col items-center gap-4">
           {episodes.map((episode) => (
-            <div key={episode.id} className="flex items-center gap-4 p-4 bg-gray-800 rounded-lg md:w-[1000px] md:h-[250px]">
-              <img
-                src={`https://image.tmdb.org/t/p/w300${episode.still_path}`}
-                alt={episode.name}
-                className="h-full rounded-md"
-              />
-              <div>
-                <h3 className="text-lg font-semibold">{episode.episode_number}. {episode.name}</h3>
-                <p className="text-sm text-gray-400">{episode.runtime} min</p>
-                <p className="text-sm text-gray-200 mt-2">{episode.overview}</p>
+              <div key={episode.id} className="flex flex-col md:flex-row md:items-center gap-4 p-4 bg-gray-800 rounded-lg md:max-w-[1000px] md:w-auto">
+                <img
+                  src={`https://image.tmdb.org/t/p/w300${episode.still_path}`}
+                  alt={episode.name}
+                  className="h-full rounded-md"
+                />
+                <div>
+                  <h3 className="text-lg font-semibold">{episode.episode_number}. {episode.name}</h3>
+                  <p className="text-sm text-gray-400">{episode.runtime} min</p>
+                  <p className="text-sm text-gray-200 mt-2">{episode.overview}</p>
+                </div>
               </div>
-            </div>
           ))}
         </div>
       </div>
