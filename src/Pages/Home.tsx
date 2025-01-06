@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getPopularMovies, getPopularSeries, getMarvelMovies, getTrending } from '../api/tmdb';
+import { getPopularMovies, getPopularSeries, getMarvelMovies, getTrending, getStarWarsMovies, getHarryPotterMovies } from '../api/tmdb';
 import Carousel from '../components/Carousel';
 import Banner from '../components/Banner';
 import { MediaItem } from '../types'; 
@@ -8,6 +8,8 @@ const Home = () => {
   const [popularMovies, setPopularMovies] = useState<MediaItem[]>([]);
   const [popularSeries, setPopularSeries] = useState<MediaItem[]>([]);
   const [marvelMovies, setMarvelMovies] = useState<MediaItem[]>([]);
+  const [starWarsMovies, setStarWarsMovies] = useState<MediaItem[]>([]);
+  const [harryPotterMovies, setHarryPotterMovies] = useState<MediaItem[]>([]);
   const [trending, setTrending] = useState<MediaItem[]>([]); 
   const [randomItem, setRandomItem] = useState<MediaItem | null>(null);
 
@@ -27,6 +29,16 @@ const Home = () => {
       setMarvelMovies(marvelData);
     };
 
+    const fetchStarWarsMovies = async () => {
+      const starWarsData = await getStarWarsMovies();
+      setStarWarsMovies(starWarsData);
+    };
+
+    const fetchHarryPotterMovies = async () => {
+      const harryPotterData = await getHarryPotterMovies();
+      setHarryPotterMovies(harryPotterData);
+    };
+
     const fetchTrending = async () => {
       const trendingData = await getTrending();
       setTrending(trendingData);
@@ -35,7 +47,9 @@ const Home = () => {
     fetchMovies();
     fetchSeries();
     fetchMarvelMovies();
+    fetchStarWarsMovies();
     fetchTrending();
+    fetchHarryPotterMovies();
   }, []);
 
   useEffect(() => {
@@ -65,6 +79,8 @@ const Home = () => {
         <Carousel title="Séries em Alta" items={popularSeries} type="serie" />
         <Carousel title="Filmes em Alta" items={popularMovies} type="movie" />
         <Carousel title="Universo Marvel" items={marvelMovies} type="movie" />
+        <Carousel title="Universo Star Wars" items={starWarsMovies} type="movie" />
+        <Carousel title="Universo Harry Potter" items={harryPotterMovies} type="movie" />
       </div>
     </div>
   );

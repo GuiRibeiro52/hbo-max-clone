@@ -58,6 +58,26 @@ export const getMarvelMovies = async () => {
   }
 };
 
+export const getStarWarsMovies = async () => {
+  try {
+    const response = await tmdb.get('/collection/10'); 
+    return response.data.parts; 
+  } catch (error) {
+    console.error('Erro ao buscar filmes do Universo Star Wars:', error);
+    return [];
+  }
+};
+
+export const getHarryPotterMovies = async () => {
+  try {
+    const response = await tmdb.get('/collection/1241'); 
+    return response.data.parts; 
+  } catch (error) {
+    console.error('Erro ao buscar filmes do Universo Harry Potter:', error);
+    return [];
+  }
+};
+
 export const getTrending = async () => {
   try {
     const response = await tmdb.get('/trending/all/day');
